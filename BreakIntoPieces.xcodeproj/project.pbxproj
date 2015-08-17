@@ -13,7 +13,6 @@
 		BA28B67D1B80AE5E00B2126F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA28B67C1B80AE5E00B2126F /* Images.xcassets */; };
 		BA28B6801B80AE5E00B2126F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA28B67E1B80AE5E00B2126F /* LaunchScreen.xib */; };
 		BA28B68C1B80AE5E00B2126F /* BreakIntoPiecesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28B68B1B80AE5E00B2126F /* BreakIntoPiecesTests.swift */; };
-		BA28B6961B8183D500B2126F /* BreakIntoPiecesSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28B6951B8183D500B2126F /* BreakIntoPiecesSegue.swift */; };
 		BA28B6981B81B35700B2126F /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA28B6971B81B35700B2126F /* PresentedViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		BA28B6851B80AE5E00B2126F /* BreakIntoPiecesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreakIntoPiecesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA28B68A1B80AE5E00B2126F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA28B68B1B80AE5E00B2126F /* BreakIntoPiecesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakIntoPiecesTests.swift; sourceTree = "<group>"; };
-		BA28B6951B8183D500B2126F /* BreakIntoPiecesSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakIntoPiecesSegue.swift; sourceTree = "<group>"; };
 		BA28B6971B81B35700B2126F /* PresentedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,7 +85,6 @@
 				BA28B67C1B80AE5E00B2126F /* Images.xcassets */,
 				BA28B67E1B80AE5E00B2126F /* LaunchScreen.xib */,
 				BA28B6731B80AE5E00B2126F /* Supporting Files */,
-				BA28B6951B8183D500B2126F /* BreakIntoPiecesSegue.swift */,
 				BA28B6971B81B35700B2126F /* PresentedViewController.swift */,
 			);
 			path = BreakIntoPieces;
@@ -218,7 +215,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA28B6961B8183D500B2126F /* BreakIntoPiecesSegue.swift in Sources */,
 				BA28B6981B81B35700B2126F /* PresentedViewController.swift in Sources */,
 				BA28B6781B80AE5E00B2126F /* ViewController.swift in Sources */,
 				BA28B6761B80AE5E00B2126F /* AppDelegate.swift in Sources */,

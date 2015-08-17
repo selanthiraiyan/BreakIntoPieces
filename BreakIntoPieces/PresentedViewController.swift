@@ -7,6 +7,10 @@
 //
 
 import UIKit
+struct BrokenPiece {
+    let image: UIImage
+    let frame: CGRect
+}
 
 class PresentedViewController: UIViewController {
     var animator: UIDynamicAnimator!
