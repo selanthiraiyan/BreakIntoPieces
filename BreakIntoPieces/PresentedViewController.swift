@@ -14,7 +14,7 @@ class PresentedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -28,11 +28,14 @@ class PresentedViewController: UIViewController {
         
         let image = imageWithView(self.view)
         
+        if let parentView = self.presentingViewController?.view {
+            let imageView = UIImageView(image: imageWithView(parentView))
+            self.view.addSubview(imageView)
+        }
+        
         let containerView = UIView(frame: self.view.frame)
-        containerView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(containerView)
         animator = UIDynamicAnimator(referenceView: containerView)
-        animator.delegate = self
         
         let brokenPieces = splitIntoPieces(image)
         var imageViews = [UIImageView]()
@@ -42,35 +45,42 @@ class PresentedViewController: UIViewController {
             containerView.addSubview(imageView)
             
             imageViews.append(imageView)
-            
         }
         
         
         let elasticityBehaviuor = UIDynamicItemBehavior(items: imageViews)
-        elasticityBehaviuor.elasticity = 0.5
-        animator.addBehavior(elasticityBehaviuor)
+        elasticityBehaviuor.elasticity = 0.1
+//        animator.addBehavior(elasticityBehaviuor)
         
         let collision = UICollisionBehavior(items: imageViews)
-        collision.addBoundaryWithIdentifier("top", fromPoint: containerView.frame.origin, toPoint: CGPointMake(containerView.frame.width, containerView.frame.origin.y))
-        collision.addBoundaryWithIdentifier("left", fromPoint: containerView.frame.origin, toPoint: CGPointMake(containerView.frame.origin.x, containerView.frame.height))
-        collision.addBoundaryWithIdentifier("right", fromPoint: CGPointMake(containerView.frame.width, containerView.frame.origin.y), toPoint: CGPointMake(containerView.frame.width, containerView.frame.height))
+        collision.addBoundaryWithIdentifier("boundary", forPath: UIBezierPath(rect: containerView.frame))
         animator.addBehavior(collision)
         
         let pushFromLeft = UIPushBehavior(items: imageViews, mode: .Instantaneous)
-        pushFromLeft.setAngle(( 2 * CGFloat(M_PI)), magnitude: 0.3)
-        animator.addBehavior(pushFromLeft)
+        pushFromLeft.setAngle(( 2 * CGFloat(M_PI)), magnitude: 0.1)
+//        animator.addBehavior(pushFromLeft)
         
         let pushFromRight = UIPushBehavior(items: imageViews, mode: .Instantaneous)
-        pushFromRight.setAngle((CGFloat(M_PI)), magnitude: 0.5)
+        pushFromRight.setAngle(3/4 * (CGFloat(M_PI)), magnitude: 0.1)
         animator.addBehavior(pushFromRight)
-
+        
         let pushFromBottom = UIPushBehavior(items: imageViews, mode: .Instantaneous)
-        pushFromBottom.setAngle((3/2 * CGFloat(M_PI)), magnitude: 1.0)
+        pushFromBottom.setAngle((1/2 * CGFloat(M_PI)), magnitude: 0.4)
 //        animator.addBehavior(pushFromBottom)
         
-        let gravityBehaviour = UIGravityBehavior(items: imageViews)
-        gravityBehaviour.magnitude = 0.2
-        animator.addBehavior(gravityBehaviour)
+        
+        var triggerTime = (Int64(NSEC_PER_SEC) * 1)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, triggerTime), dispatch_get_main_queue(), { () -> Void in
+            collision.removeAllBoundaries()
+            
+            let gravityBehaviour = UIGravityBehavior(items: imageViews)
+            gravityBehaviour.magnitude = 0.2
+            self.animator.addBehavior(gravityBehaviour)
+        })
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64(NSEC_PER_SEC) * 4)), dispatch_get_main_queue(), { () -> Void in
+            self.dismissViewControllerAnimated(false, completion: nil)
+        })
     }
     
     
@@ -89,8 +99,8 @@ class PresentedViewController: UIViewController {
         
         var subImages = [BrokenPiece]()
         
-        let rows = 25 as CGFloat
-        let clms = 15 as CGFloat
+        let rows = 30 as CGFloat
+        let clms = 20 as CGFloat
         
         for(var y = 0 as CGFloat; y < rows; y++) {
             for(var x = 0.0 as CGFloat; x < clms; x++) {
@@ -105,11 +115,5 @@ class PresentedViewController: UIViewController {
             }
         }
         return subImages
-    }
-}
-
-extension PresentedViewController: UIDynamicAnimatorDelegate  {
-    func dynamicAnimatorDidPause(animator: UIDynamicAnimator) {
-        dismissViewControllerAnimated(false, completion: nil)
     }
 }
