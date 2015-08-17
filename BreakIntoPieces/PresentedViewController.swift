@@ -57,14 +57,19 @@ class PresentedViewController: UIViewController {
         animator.addBehavior(collision)
         
         let pushFromLeft = UIPushBehavior(items: imageViews, mode: .Instantaneous)
-        pushFromLeft.setAngle(-180, magnitude: 1.0)
+        pushFromLeft.setAngle(( 2 * CGFloat(M_PI)), magnitude: 0.3)
         animator.addBehavior(pushFromLeft)
         
         let pushFromRight = UIPushBehavior(items: imageViews, mode: .Instantaneous)
-        pushFromRight.setAngle(180, magnitude: 1.0)
+        pushFromRight.setAngle((CGFloat(M_PI)), magnitude: 0.5)
         animator.addBehavior(pushFromRight)
 
+        let pushFromBottom = UIPushBehavior(items: imageViews, mode: .Instantaneous)
+        pushFromBottom.setAngle((3/2 * CGFloat(M_PI)), magnitude: 1.0)
+//        animator.addBehavior(pushFromBottom)
+        
         let gravityBehaviour = UIGravityBehavior(items: imageViews)
+        gravityBehaviour.magnitude = 0.2
         animator.addBehavior(gravityBehaviour)
     }
     
@@ -84,12 +89,13 @@ class PresentedViewController: UIViewController {
         
         var subImages = [BrokenPiece]()
         
-        let rows = 12 as CGFloat
-        let clms = 12 as CGFloat
+        let rows = 25 as CGFloat
+        let clms = 15 as CGFloat
         
         for(var y = 0 as CGFloat; y < rows; y++) {
             for(var x = 0.0 as CGFloat; x < clms; x++) {
                 let frame = CGRectMake((width / clms) * x, (height / rows) * y, (width / clms), (height / rows));
+                
                 var subimageRef = CGImageCreateWithImageInRect(image.CGImage, frame);
                 if let subImage = UIImage(CGImage: subimageRef, scale: 0.0, orientation: .Up) {
                     let frame  = CGRectMake((image.size.width / clms) * x, (image.size.height / rows) * y, (image.size.width / clms), (image.size.height / rows))
